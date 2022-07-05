@@ -1,0 +1,26 @@
+{
+  "name": "telegram-bot-one",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "talkback-bot": "ts-node ./src/talkback-bot.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elliotjharper/telegram-bot-one.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elliotjharper/telegram-bot-one/issues"
+  },
+  "homepage": "https://github.com/elliotjharper/telegram-bot-one#readme",
+  "dependencies": {
+    "@types/node": "^18.0.1",
+    "puregram": "^2.8.1",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  }
+}
