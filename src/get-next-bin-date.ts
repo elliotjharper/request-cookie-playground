@@ -7,8 +7,8 @@ export interface IBinData {
     wasteType: string;
 }
 
-async function startBrowser(runningOnRasPi: boolean): Promise<puppeteer.Browser> {
-    if (runningOnRasPi) {
+async function startBrowser(runningOn: 'pi' | 'mac' | 'win'): Promise<puppeteer.Browser> {
+    if (runningOn === 'pi') {
         return await puppeteer.launch({
             headless: true,
             executablePath: '/usr/bin/chromium-browser',
@@ -16,6 +16,12 @@ async function startBrowser(runningOnRasPi: boolean): Promise<puppeteer.Browser>
             //ignoreDefaultArgs: ['--disable-extensions'],
             // defaultViewport: null,
         });
+    } else if(runningOn === 'mac') {
+        return await puppeteer.launch({
+            headless: true,
+            executablePath: '/usr/local/bin/chromium'
+        });
+    
     } else {
         return await puppeteer.launch({
             headless: true,
@@ -99,7 +105,7 @@ async function collectBinDataFromPage(page: puppeteer.Page): Promise<IBinData[]>
 export async function getNextBinDate(): Promise<IBinData> {
     // https://github.com/puppeteer/puppeteer/issues/2924#issuecomment-880992772
 
-    const browser: puppeteer.Browser = await startBrowser(true);
+    const browser: puppeteer.Browser = await startBrowser('mac');
     const page: puppeteer.Page = await browser.newPage();
 
     await goToStartPage(page);
