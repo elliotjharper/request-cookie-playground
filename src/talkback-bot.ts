@@ -1,14 +1,15 @@
-import { Telegram } from 'puregram';
+import { Bot } from 'grammy';
+import { readFileSync } from 'fs';
 
-const botToken = process.argv[2] as string;
+const botToken = readFileSync('./token.txt', { encoding: 'utf-8' });
 
 if(!botToken) {
     throw new Error('No token provided!');
 }
 
-const telegramBot = Telegram.fromToken(botToken);
+const telegramBot = new Bot(botToken);
 
-telegramBot.updates.on('message', async (context) => {
+telegramBot.on('message', async (context) => {
     console.log('on:message...');
 
     await context.reply('Talking back!');
@@ -18,6 +19,6 @@ telegramBot.updates.on('message', async (context) => {
 
 console.log('starting bot...');
 
-telegramBot.updates.startPolling();
+telegramBot.start();
 
 console.log('bot started!');
